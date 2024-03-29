@@ -1,0 +1,4 @@
+prisma_repro/client
+__pycache__
+.pyptest_cache
+.venv

@@ -1,0 +1,20 @@
+generator py_client {
+    provider               = "prisma-client-py"
+    partial_type_generator = "prisma_repro.generate_partials"
+    output                 = "../prisma_repro/client"
+    recursive_type_depth   = "5"
+}
+
+datasource db {
+    provider     = "postgresql"
+    url          = env("DATABASE_URL")
+    relationMode = "foreignKeys"
+}
+
+model user {
+    id        Int      @id @default(autoincrement())
+    email     String   @unique
+    name      String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

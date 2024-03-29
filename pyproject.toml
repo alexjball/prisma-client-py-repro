@@ -1,0 +1,28 @@
+[tool.poetry]
+authors     = ["Alex Ball <alex@cyvl.ai>"]
+description = ""
+name        = "prisma-repro"
+readme      = "README.md"
+version     = "0.1.0"
+
+[tool.poetry.dependencies]
+debugpy = "^1.8.1"
+prisma  = "^0.13.1"
+python  = "^3.10"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires      = ["poetry-core"]
+
+[tool.poe.tasks]
+clean.shell = "python -m prisma_cleanup && rm -rf prisma_repro/client"
+generate    = "prisma generate"
+run         = "python -m prisma_repro.consumer"
+
+[tool.poe.tasks.generate-debug]
+cmd = "prisma generate"
+
+[tool.poe.tasks.generate-debug.env]
+DEBUG_PARTIALS            = "1"
+PRISMA_PY_DEBUG           = "1"
+PRISMA_PY_DEBUG_GENERATOR = "1"
